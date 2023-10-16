@@ -18,25 +18,50 @@ class FamilyStructure:
         return randint(0, 99999999)
 
     def add_member(self, member):
-        # fill this method and update the return
-        pass
+        # Fill this method and update the return
+        new_member = {
+            "id": self._generateId(),
+            "first_name": member.first_name,
+            "last_name": self.last_name,
+            "age": member.age,
+            "lucky_numbers": member.lucky_numbers
+        }
+
+        self._members.append(new_member)
+
+    def update_member(self, id, member):
+        for family_member in self._members:
+            if family_member["id"] == id:
+                family_member["first_name"] = member.first_name
+                family_member["age"] = member.age
+                family_member["lucky_numbers"] = member.lucky_numbers
+                return
 
     def delete_member(self, id):
         # fill this method and update the return
-        pass
+        self._members = list(filter(lambda m: m["id"] != id, self._members))
+
 
     def get_member(self, id):
         # fill this method and update the return
-        pass
+        for member in self._members:
+            if member["id"] == id:
+                return {
+                    "id": member["id"],
+                    "first_name": member["first_name"],
+                    "last_name": member["last_name"],
+                    "age": member["age"],
+                    "lucky_numbers": member["lucky_numbers"]
+                }
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
         return self._members
     
-def Person(FamilyStructure):
     
-    def __init__(self, id: int, first_name: str, age: int, lucky_numbers: list[int]):
-        self.id: id
-        self.first_name: first_name
-        self.age: age
-        self.lucky_numbers: lucky_numbers
+class Person:
+
+    def __init__(self, first_name: str, age: int, lucky_numbers: list[int]):
+        self.first_name = first_name
+        self.age = age
+        self.lucky_numbers = lucky_numbers

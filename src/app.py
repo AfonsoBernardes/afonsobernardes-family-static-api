@@ -12,8 +12,24 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 CORS(app)
 
-# create the jackson family object
+# Create the jackson family object
 jackson_family = FamilyStructure("Jackson")
+
+# Add members to family.
+john_jackson = Person("John", 33, [7, 13, 22])
+jackson_family.add_member(john_jackson)
+
+jane_jackson = Person("Jane", 35, [10, 14, 3])
+jackson_family.add_member(jane_jackson)
+
+jimmy_jackson = Person("Jimmy", 5, [1])
+jackson_family.add_member(jimmy_jackson)
+
+afonso_jackson = Person("Afonso", 25, [7, 12])
+
+print("OLD", jackson_family._members)
+jackson_family.update_member(jackson_family._members[0]["id"], afonso_jackson)
+print("NEW", jackson_family._members)
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
