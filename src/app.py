@@ -5,7 +5,7 @@ import os
 from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
-from datastructures import FamilyStructure
+from datastructures import FamilyStructure, Person
 #from models import Person
 
 app = Flask(__name__)
