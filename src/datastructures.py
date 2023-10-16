@@ -21,7 +21,7 @@ class FamilyStructure:
         # Fill this method and update the return
         if member.age > 0:
             new_member = {
-                "id": self._generateId(),
+                "id": self._generateId() if member.id == -1 else member.id,
                 "first_name": member.first_name,
                 "last_name": self.last_name,
                 "age": member.age,
@@ -65,8 +65,13 @@ class FamilyStructure:
     
     
 class Person:
-
-    def __init__(self, first_name: str, age: int, lucky_numbers: list[int]):
+    def __init__(self, 
+                 first_name: str,
+                 age: int, 
+                 lucky_numbers: list[int],
+                 id = -1):
+        
         self.first_name = first_name
         self.age = age
         self.lucky_numbers = lucky_numbers
+        self.id = id

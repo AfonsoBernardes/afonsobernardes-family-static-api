@@ -16,13 +16,13 @@ CORS(app)
 jackson_family = FamilyStructure("Jackson")
 
 # Add members to family.
-john_jackson = Person("John", 33, [7, 13, 22])
+john_jackson = Person("John", 33, [7, 13, 22], 1)
 jackson_family.add_member(john_jackson)
 
-jane_jackson = Person("Jane", 35, [10, 14, 3])
+jane_jackson = Person("Jane", 35, [10, 14, 3], 2)
 jackson_family.add_member(jane_jackson)
 
-jimmy_jackson = Person("Jimmy", 5, [1])
+jimmy_jackson = Person("Jimmy", 5, [1], 3)
 jackson_family.add_member(jimmy_jackson)
 
 
@@ -72,7 +72,17 @@ def get_member(member_id):
 def add_family_member():
     # this is how you can use the Family datastructure by calling its methods
     new_member_data = request.get_json()
-    new_member = Person(new_member_data["first_name"], new_member_data["age"], new_member_data["lucky_numbers"])
+    if "id" in new_member_data.keys():
+        new_member = Person(new_member_data["first_name"],
+                            new_member_data["age"],
+                            new_member_data["lucky_numbers"],
+                            new_member_data["id"]
+                    )
+    else:
+        new_member = Person(new_member_data["first_name"],
+                            new_member_data["age"],
+                            new_member_data["lucky_numbers"]
+                    )
 
     jackson_family.add_member(new_member)
     response_body = {
