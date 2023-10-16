@@ -19,23 +19,28 @@ class FamilyStructure:
 
     def add_member(self, member):
         # Fill this method and update the return
-        new_member = {
-            "id": self._generateId(),
-            "first_name": member.first_name,
-            "last_name": self.last_name,
-            "age": member.age,
-            "lucky_numbers": member.lucky_numbers
-        }
+        if member.age > 0:
+            new_member = {
+                "id": self._generateId(),
+                "first_name": member.first_name,
+                "last_name": self.last_name,
+                "age": member.age,
+                "lucky_numbers": member.lucky_numbers
+            }
 
-        self._members.append(new_member)
+            self._members.append(new_member)
+            return "A NEW MEMBER WAS ADDED SUCCESSEFULLY"
+        return "A MEMBER'S AGE MUST BE GREATER THAN ZERO!"
 
     def update_member(self, id, member):
         for family_member in self._members:
-            if family_member["id"] == id:
+            if family_member["id"] == id and member.age > 0:
                 family_member["first_name"] = member.first_name
                 family_member["age"] = member.age
                 family_member["lucky_numbers"] = member.lucky_numbers
-                return
+                return "MEMBER UPDATED SUCCESSEFULLY"
+            
+            return "NO FAMILY MEMBER WITH THAT ID WAS FOUND OR THE MEMBER'S AGE MUST BE GREATER THAN ZERO!"
 
     def delete_member(self, id):
         # fill this method and update the return

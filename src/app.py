@@ -25,11 +25,7 @@ jackson_family.add_member(jane_jackson)
 jimmy_jackson = Person("Jimmy", 5, [1])
 jackson_family.add_member(jimmy_jackson)
 
-afonso_jackson = Person("Afonso", 25, [7, 12])
 
-print("OLD", jackson_family._members)
-jackson_family.update_member(jackson_family._members[0]["id"], afonso_jackson)
-print("NEW", jackson_family._members)
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
@@ -42,15 +38,47 @@ def sitemap():
     return generate_sitemap(app)
 
 @app.route('/members', methods=['GET'])
-def handle_hello():
+def get_all_members():
 
     # this is how you can use the Family datastructure by calling its methods
     members = jackson_family.get_all_members()
     response_body = {
-        "hello": "world",
         "family": members
     }
 
+    return jsonify(response_body), 200
+
+
+@app.route('/members/<int:member_id>', methods=['GET', 'DELETE'])
+def get_member(member_id):
+    # this is how you can use the Family datastructure by calling its methods
+    if request.method == 'GET':
+        member = jackson_family.get_member(member_id)
+        response_body = {
+            "status": "Got the following member",
+            "family_member": member
+        }
+
+    elif request.method == 'DELETE':
+        jackson_family.delete_member(member_id)
+        response_body = {
+            "status": "Deleted the specified member.",
+            "current_family": jackson_family._members
+        }
+
+    return jsonify(response_body), 200
+
+@app.route('/member', methods=['POST'])
+def add_family_member():
+    # this is how you can use the Family datastructure by calling its methods
+    new_member_data = request.get_json()
+    new_member = Person(new_member_data["first_name"], new_member_data["age"], new_member_data["lucky_numbers"])
+
+    jackson_family.add_member(new_member)
+    response_body = {
+        "status": "New member added.",
+        "family": jackson_family._members
+    }
 
     return jsonify(response_body), 200
 
