@@ -53,8 +53,7 @@ class FamilyStructure:
             if member["id"] == id:
                 return {
                     "id": member["id"],
-                    "first_name": member["first_name"],
-                    "last_name": member["last_name"],
+                    "first_name": member['first_name'],
                     "age": member["age"],
                     "lucky_numbers": member["lucky_numbers"]
                 }
